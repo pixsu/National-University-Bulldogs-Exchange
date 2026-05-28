@@ -8,6 +8,7 @@ import defpfp from '../imgs/defaultpfp.jpg';
 import ContactSection from './ContactSection';
 import ChangePasswordPopup from './ChangePasswordPopup';
 import ConfirmationModal from './ConfirmationModal';
+import { toApiUrl, toAssetUrl } from '../config/api';
 
 // AccountPage component handles the user's account settings and profile management
 const AccountPage = () => {
@@ -34,7 +35,7 @@ const AccountPage = () => {
 
             try {
                 // Make an API call to fetch user details
-                const response = await fetch(`http://localhost:5000/api/${userId}`);
+                const response = await fetch(toApiUrl(`/api/${userId}`));
                 const data = await response.json();
                 if (data.user) {
                     setUser(data.user); // Store fetched user details in state
@@ -87,7 +88,7 @@ const AccountPage = () => {
 
         try {
             // Make an API call to delete the user account
-            const response = await fetch(`http://localhost:5000/api/auth/deleteAccount/${userId}`, {
+            const response = await fetch(toApiUrl(`/api/auth/deleteAccount/${userId}`), {
                 method: 'DELETE',
             });
 
@@ -146,7 +147,7 @@ const AccountPage = () => {
 
             try {
                 // Make an API call to upload the new profile picture
-                const response = await fetch('http://localhost:5000/api/uploadProfilePic', {
+                const response = await fetch(toApiUrl('/api/uploadProfilePic'), {
                     method: 'POST',
                     body: formData
                 });
@@ -174,7 +175,7 @@ const AccountPage = () => {
 
         try {
             // Make an API call to change the password
-            const response = await fetch('http://localhost:5000/api/auth/change-password', {
+            const response = await fetch(toApiUrl('/api/auth/change-password'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -221,10 +222,7 @@ const AccountPage = () => {
                         <div className="account-details">
                             {/* Display user's profile picture */}
                             <img
-                                src={profilePic
-                                    ? (profilePic.startsWith('http') ? profilePic : `http://localhost:5000/${profilePic}`)
-                                    : defpfp // If no profilePic, show the default image
-                                }
+                                src={profilePic ? toAssetUrl(profilePic) : defpfp}
                                 alt="Profile Picture"
                                 className="profile-pic"
                             />

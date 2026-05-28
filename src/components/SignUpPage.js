@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingPopUp from './LoadingPopUp';
+import { toApiUrl } from '../config/api';
 
 import './components_css/signuppagestyle.css';
 import logo3 from '../imgs/websitelogo2.png';
@@ -73,7 +74,7 @@ const SignUpPage = () => {
       setLoading(true); // Show loading spinner while waiting for response
 
       // Send signup request to server
-      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+      const response = await axios.post(toApiUrl('/api/auth/signup'), {
         firstName,
         lastName,
         email,

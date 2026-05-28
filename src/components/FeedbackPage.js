@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './components_css/feedbackform.css';
+import { toApiUrl } from '../config/api';
 
 // FeedbackPage component for collecting user feedback and displaying a thank-you message
 const FeedbackPage = () => {
@@ -70,7 +71,7 @@ const FeedbackPage = () => {
 
     try {
       // Send feedback data to the server
-      const response = await fetch('http://localhost:5000/api/feedback/submit', {
+      const response = await fetch(toApiUrl('/api/feedback/submit'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, feedback, rating }),

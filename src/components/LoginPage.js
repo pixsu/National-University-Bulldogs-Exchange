@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './components_css/loginpagestyle.css';
 import logo2 from '../imgs/websitelogo2.png';
 import LoadingPopUp from './LoadingPopUp';
+import { toApiUrl } from '../config/api';
 
 const LoginPage = () => {
   // Define state variables for login form fields, error messages, and UI states
@@ -51,7 +52,7 @@ const LoginPage = () => {
   const loginUser = async () => {
     try {
       // Send login request to server
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(toApiUrl('/api/auth/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

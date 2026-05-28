@@ -8,6 +8,7 @@ import ContactSection from './ContactSection';
 import ScrollToTopButton from './ScrollToTopButton';
 import FeedbackPage from './FeedbackPage';
 import SizePopUpChart from './SizePopUpChart';
+import { toApiUrl, toAssetUrl } from '../config/api';
 
 const ProductsPage = () => {
   // State variables to manage product data, category filters, search, cart, and other UI elements
@@ -27,7 +28,7 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products');
+        const response = await axios.get(toApiUrl('/api/products'));
         console.log('Fetched Products:', response.data); // Log fetched data for debugging
         setProducts(response.data);
       } catch (error) {
@@ -202,7 +203,7 @@ const ProductsPage = () => {
               <div className="individual-product" key={product._id}>
                 <div className="image-wrapper" onClick={() => handleProductClick(product)}>
                   <img
-                    src={`http://localhost:5000${product.image}`}
+                    src={toAssetUrl(product.image)}
                     alt={product.name}
                     className="product-img"
                   />
@@ -228,7 +229,7 @@ const ProductsPage = () => {
         <div className="product-modal">
           <div className="modal-content">
             <div className="modal-image">
-              <img src={`http://localhost:5000${selectedProduct.image}`} alt={selectedProduct.name} />
+              <img src={toAssetUrl(selectedProduct.image)} alt={selectedProduct.name} />
             </div>
             <div className="modal-info">
               <h2 className="product-name">{selectedProduct.name}</h2>

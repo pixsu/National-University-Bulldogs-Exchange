@@ -12,6 +12,7 @@ import ContactSection from './ContactSection';
 import ScrollToTopButton from './ScrollToTopButton';
 import FeedbackPage from './FeedbackPage';
 import ConfirmationModal from './ConfirmationModal';
+import { toApiUrl, toAssetUrl } from '../config/api';
 
 import barcodeImage from '../imgs/barcode.png';
 import ordersummlogo from '../imgs/websitelogo2.png';
@@ -27,7 +28,7 @@ const CartPage = () => {
   useEffect(() => {
     const fetchAvailableDates = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/pickupSchedule/available-dates');
+        const response = await axios.get(toApiUrl('/api/pickupSchedule/available-dates'));
 
         // Log the response to check the data format
         console.log("Fetched dates from server:", response.data);
@@ -61,7 +62,7 @@ const CartPage = () => {
       if (!userId) return;
 
       try {
-        const response = await fetch(`http://localhost:5000/api/${userId}`);
+        const response = await fetch(toApiUrl(`/api/${userId}`));
         const data = await response.json();
         if (data.user) {
           const userCart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
@@ -164,7 +165,7 @@ const CartPage = () => {
     try {
       const formattedDate = format(date, 'yyyy-MM-dd'); // Format the date for the API
 
-      const response = await fetch(`http://localhost:5000/api/pickup-schedule/update-slots`, {
+      const response = await fetch(toApiUrl('/api/pickup-schedule/update-slots'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -392,7 +393,7 @@ const CartPage = () => {
 
     try {
       // Send the order data to the backend
-      const response = await axios.post('http://localhost:5000/api/orders/checkout', {
+      const response = await axios.post(toApiUrl('/api/orders/checkout'), {
         userId,
         productIds,
         pickupScheduleId: selectedDate._id,
@@ -478,7 +479,7 @@ const CartPage = () => {
             {cartItems.map((item, index) => (
               <div className='individualproducts' key={index}>
                 <div className='productimagename'>
-                  <img src={`http://localhost:5000${item.image}`} alt={item.name} />
+                  <img src={toAssetUrl(item.image)} alt={item.name} />
                   <p>
                     {item.name} <span style={{ fontWeight: "bold" }}>{item.selectedSize}</span>
                   </p>
