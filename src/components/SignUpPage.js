@@ -10,6 +10,7 @@ import logo3 from '../imgs/websitelogo2.png';
 const SignUpPage = () => {
   // Define state variables for form fields and UI behavior
   const [passwordVisible, setPasswordVisible] = useState(false); // Toggles password visibility
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // Toggles confirm password visibility
   const [selectedCourse, setSelectedCourse] = useState(""); // Stores the selected course
   const [email, setEmail] = useState(""); // Stores the user's email
   const [password, setPassword] = useState(""); // Stores the user's password
@@ -22,6 +23,11 @@ const SignUpPage = () => {
   // Toggles the visibility of the password input field
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  // Toggles the visibility of the confirm password input field
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
   // Initialize navigation hook to redirect after signup
@@ -178,7 +184,7 @@ const SignUpPage = () => {
           <div className="confirmpassword-input-group">
             <i className="fas fa-lock"></i>
             <input
-              type={passwordVisible ? "text" : "password"}
+              type={confirmPasswordVisible ? "text" : "password"}
               placeholder="Confirm Password"
               required
               minLength={8}
@@ -187,8 +193,8 @@ const SignUpPage = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <i
-              className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}
-              onClick={togglePasswordVisibility}
+              className={confirmPasswordVisible ? "fas fa-eye-slash" : "fas fa-eye"}
+              onClick={toggleConfirmPasswordVisibility}
               style={{ cursor: 'pointer' }}
             ></i>
           </div>
