@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { addDays, isSunday, format, min, max } from 'date-fns';
+import { format } from 'date-fns';
 import axios from 'axios';
 
 import NavBar from './NavBar';
@@ -81,11 +81,6 @@ const CartPage = () => {
 
 
 
-  // BAGO TO set kung anong month yung lalabas sa date picker
-  const availablePickupDates = availableDates.map(({ date }) => new Date(date));
-  const minDate = min(availablePickupDates);
-  const maxDate = max(availablePickupDates);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const totalItems = () => quantities.reduce((sum, quantity) => sum + quantity, 0);
@@ -151,54 +146,6 @@ const CartPage = () => {
   const setSelectedCategory = (category) => {
     navigate('/products', { state: { selectedCategory: category } });
   };
-
-  // BAGO TOOOOOOOOO function to adjust slot availability
-  const adjustSlotAvailability = async (date) => {
-    if (!date) return;
-    console.log("Selected Date Before Formatting:", date);
-    // Make sure date is a valid Date object
-    if (!(date instanceof Date) || isNaN(date.getDate())) {
-      console.error("Invalid date object passed:", date);
-      return false; // Exit if the date is not valid
-    }
-
-    try {
-      const formattedDate = format(date, 'yyyy-MM-dd'); // Format the date for the API
-
-      const response = await fetch(toApiUrl('/api/pickup-schedule/update-slots'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ date: formattedDate }),
-      });
-
-      const data = await response.json();
-      console.log("Response from server:", data);
-
-      if (data.message === "Slot updated successfully") {
-        console.log("Success message:", data.message);
-        setAvailableDates((prevAvailableDates) =>
-          prevAvailableDates.map((availableDate) => {
-            if (availableDate._id === date._id && availableDate.slots > 0) {
-              return { ...availableDate, slots: availableDate.slots - 1 };
-            }
-            return availableDate;
-          })
-        );
-        return true; // Indicate success
-      } else {
-        console.error("Failed to adjust slots on the server:", data);
-        alert(data.message || "Failed to adjust slots. Please try again.");
-        return false;
-      }
-    } catch (error) {
-      console.error("Error adjusting slot availability:", error);
-      alert("An error occurred while adjusting slot availability.");
-      return false;
-    }
-  };
-
 
   console.log("Selected Date before generating PDF:", selectedDate);
   // generate pdf function
@@ -423,22 +370,6 @@ const CartPage = () => {
       alert("Checkout failed. Please try again.");
     }
   };
-
-  // function to check if the date is valid (not a Sunday and at least 10 days from today)
-  // filters the dates to disable those with zero slots
-  const isDateValid = (date) => {
-    const today = new Date();
-    const maxDate = addDays(today, 6);
-    const formattedDate = format(selectedDate.date, 'MMMM d, yyyy');
-
-    return (
-      date >= today &&
-      date <= maxDate &&
-      !isSunday(date) &&
-      availableDates.some((d) => d.date === formattedDate && d.slots > 0)
-    );
-  };
-
 
   return (
     <div>

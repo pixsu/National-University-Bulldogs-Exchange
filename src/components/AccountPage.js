@@ -16,9 +16,6 @@ const AccountPage = () => {
     const [isEditing, setIsEditing] = useState(false); // State to track if the user is editing their profile
     const [profilePic, setProfilePic] = useState(null); // State to store the profile picture URL
     const [selectedFile, setSelectedFile] = useState(null); // State to store the selected file for profile picture upload
-    const [currentPassword, setCurrentPassword] = useState(''); // State for current password input
-    const [newPassword, setNewPassword] = useState(''); // State for new password input
-    const [confirmPassword, setConfirmPassword] = useState(''); // State for confirming new password
     const [isChangingPassword, setIsChangingPassword] = useState(false); // State to toggle password change popup
     const [user, setUser] = useState(null); // State to store fetched user details
     const [isModalOpen, setIsModalOpen] = useState(false); // State to control logout confirmation modal
@@ -223,7 +220,7 @@ const AccountPage = () => {
                             {/* Display user's profile picture */}
                             <img
                                 src={profilePic ? toAssetUrl(profilePic) : defpfp}
-                                alt="Profile Picture"
+                                alt="Profile"
                                 className="profile-pic"
                             />
                             <div className="info">

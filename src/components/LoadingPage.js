@@ -31,7 +31,7 @@ const LoadingPage = () => {
         <button className="btn" onClick={handleSignup}>Sign Up</button>
       </div>
 
-      <img src={center} alt="Center Image" className="center-image" />
+      <img src={center} alt="Center banner" className="center-image" />
 
       <p className='des'>
         Welcome to the official <strong>NU MOA Bulldogs Exchange Merchandise Website! </strong> 

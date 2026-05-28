@@ -36,13 +36,13 @@ const ContactSection = ({ setSelectedCategory }) => {
             <h2>Shop</h2>
             <ul>
               {/* Link to the 'College' category */}
-              <li><a href="#" onClick={() => handleCategoryClick('college')}>College</a></li>
+              <li><a href="/products" onClick={(e) => { e.preventDefault(); handleCategoryClick('college'); }}>College</a></li>
 
               {/* Link to the 'Senior High School' category */}
-              <li><a href="#" onClick={() => handleCategoryClick('senior high school')}>Senior High School</a></li>
+              <li><a href="/products" onClick={(e) => { e.preventDefault(); handleCategoryClick('senior high school'); }}>Senior High School</a></li>
 
               {/* Link to the 'Merchandise' category */}
-              <li><a href="#" onClick={() => handleCategoryClick('merchandise')}>Merchandise</a></li>
+              <li><a href="/products" onClick={(e) => { e.preventDefault(); handleCategoryClick('merchandise'); }}>Merchandise</a></li>
             </ul>
           </div>
 

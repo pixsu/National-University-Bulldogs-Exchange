@@ -14,7 +14,7 @@ import Slideshow from './Slideshow';
 
 const HomePage = () => {
   // Default product list for featured products section
-  const [products, setProducts] = useState([
+  const [products] = useState([
     {
       id: 7,
       name: 'Bulldogs Cap',
@@ -71,13 +71,15 @@ const HomePage = () => {
       }
     });
 
-    if (whatsNewRef.current) {
-      observer.observe(whatsNewRef.current);
+    const observedSection = whatsNewRef.current;
+
+    if (observedSection) {
+      observer.observe(observedSection);
     }
 
     return () => {
-      if (whatsNewRef.current) {
-        observer.unobserve(whatsNewRef.current);
+      if (observedSection) {
+        observer.unobserve(observedSection);
       }
     };
   }, []);

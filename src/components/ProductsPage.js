@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './components_css/productspagestyle.css';
 import axios from 'axios';
 
@@ -21,8 +20,7 @@ const ProductsPage = () => {
   const [uniformCount, setUniformCount] = useState(0);
   const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
-  const navigate = useNavigate();
+  const [, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
 
   // Fetch products from the backend (MongoDB) on initial render
   useEffect(() => {
