@@ -62,6 +62,23 @@ p {
     box-sizing: border-box;
 }
 
+.input-error {
+    border-color: #c0392b !important;
+    background-color: #fff7f7;
+}
+
+.field-error {
+    color: #c0392b;
+    font-size: 12px;
+    text-align: left;
+    margin: 6px 0 0;
+}
+
+.field-error-block {
+    margin-top: -14px;
+    margin-bottom: 14px;
+}
+
 .email-input-group,
 .password-input-group,
 .confirmpassword-input-group,
